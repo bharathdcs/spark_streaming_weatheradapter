@@ -19,17 +19,14 @@ import com.sun.research.ws.wadl.Response;
 public class WcReceiver extends Receiver<String> implements Serializable{
 	
 	private String url;
-	private String username;
-	private String password;
+	
 	//Logger logger=Logger.getLogger(WcReceiver.class);
 	
 	public WcReceiver(String url)
 	{
 		super(StorageLevel.MEMORY_AND_DISK_2());
 		this.url=url;
-		this.password=password;
-		this.username=username;
-		
+	
 		
 	}
 
@@ -56,20 +53,14 @@ public class WcReceiver extends Receiver<String> implements Serializable{
 	}
 	private void receive()
 	{
-		//logger.info("Inside Receive connecting to TWC");
-//		Executor executor=Executor.newInstance().auth(username,password);
-//		Request request = Request.Get(url);
-//		Response response;
+	
 		 
 		try {
 			HttpGet get = new HttpGet(url);
 	        HttpClient httpclient = new DefaultHttpClient();
 	        HttpResponse response=httpclient.execute(get);
 	        BufferedReader br=new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
-	      
-//			response = executor.execute(request);
-//			String output=response.returnContent().asString();
-//			//logger.info(output);
+	 
 			store(br.readLine());
 		} catch (ClientProtocolException e) {
 			// TODO Auto-generated catch block
